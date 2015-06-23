@@ -353,14 +353,104 @@ public class MainActivity extends Activity {
 
 	}
 	//endregion
-//region Lokal Position
-	public void lokalePosition()
-	{
+	// region Punkte sortieren
+	public float[][] punkteSortieren() {
+		float x1 = Zentren.getXcenter1();
+		float y1 = Zentren.getYcenter1();
 
+		float x2 = Zentren.getXcenter2();
+		float y2 = Zentren.getYcenter2();
+
+		float x3 = Zentren.getXcenter3();
+		float y3 = Zentren.getYcenter3();
+
+		float x4 = Zentren.getXcenter4();
+		float y4 = Zentren.getYcenter4();
+
+		float[] xsort = new float[4];
+		xsort[0] = x1;
+		xsort[1] = x2;
+		xsort[2] = x3;
+		xsort[3] = x4;
+		float[] ysort = new float[4];
+		ysort[0] = y1;
+		ysort[1] = y2;
+		ysort[2] = y3;
+		ysort[3] = y4;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3 - i; j++)
+			{
+				if (xsort[j]>xsort[j+1])
+				{
+					float tempx = xsort[j];
+					xsort[j] = xsort[j+1];
+					xsort[j+1] = tempx;
+					float tempy = ysort[j];
+					ysort[j] = ysort[j+1];
+					ysort[j+1] = tempy;
+				}
+
+			}
+		}
+
+		float[][] punkteArray = new float[4][3];
+		//region Einortnen der Punkte
+
+		//region linke Hälfte der Punkte
+		if (ysort[0]<ysort[1])
+		{
+			punkteArray[0][0] = 1;
+			punkteArray[0][1] = xsort[0];
+			punkteArray[0][2] = ysort[0];
+
+			punkteArray[3][0] = 4;
+			punkteArray[3][1] = xsort[1];
+			punkteArray[3][2] = ysort[1];
+
+		}
+		else
+		{
+			punkteArray[0][0] = 1;
+			punkteArray[0][1] = xsort[1];
+			punkteArray[0][2] = ysort[1];
+
+			punkteArray[3][0] = 4;
+			punkteArray[3][1] = xsort[0];
+			punkteArray[3][2] = ysort[0];
+		}
+		//endregion
+		//region rechte Hälfte der Punkte
+		if (ysort[2]<ysort[3])
+		{
+			punkteArray[1][0] = 2;
+			punkteArray[1][1] = xsort[2];
+			punkteArray[1][2] = ysort[2];
+
+			punkteArray[2][0] = 3;
+			punkteArray[2][1] = xsort[3];
+			punkteArray[2][2] = ysort[3];
+
+		}
+		else
+		{
+			punkteArray[1][0] = 2;
+			punkteArray[1][1] = xsort[3];
+			punkteArray[1][2] = ysort[3];
+
+			punkteArray[2][0] = 3;
+			punkteArray[2][1] = xsort[2];
+			punkteArray[2][2] = ysort[2];
+		}
+		//endregion
+		//endregion
+
+		return punkteArray;
 	}
-
-
 	//endregion
+
+ 	
+
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == IMAGE_CAPTURE) {
 			if (resultCode == RESULT_OK) {
