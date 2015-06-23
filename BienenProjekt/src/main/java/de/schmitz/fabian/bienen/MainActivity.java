@@ -344,7 +344,14 @@ public class MainActivity extends Activity {
 
 	}
 	//endregion
+//region Lokal Position
+	public void lokalePosition()
+	{
+		
+	}
 
+
+	//endregion
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == IMAGE_CAPTURE) {
 			if (resultCode == RESULT_OK) {
