@@ -156,7 +156,7 @@ public class MainActivity extends Activity {
 			if(rechneVerschiebung)
 			{
 				diffX = ivP1.getWidth()/2;
-				diffY = (ivP4.getY()-ivP1.getY());
+				diffY = (ivP4.getY()-ivP1.getY()+ivP1.getHeight()/2);
 				rechneVerschiebung = false;
 			}
 		}
@@ -168,12 +168,15 @@ public class MainActivity extends Activity {
 	{
 		public boolean onTouch(View v , MotionEvent ev)
 		{
-
-			if (ev.getAction()==MotionEvent.ACTION_MOVE)
+			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY())&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth())&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight())))
 			{
-					ivP1.setX(ev.getRawX()-diffX);
-					ivP1.setY(ev.getRawY()-diffY);
+				if (ev.getAction() == MotionEvent.ACTION_MOVE)
+				{
+					ivP1.setX(ev.getRawX() - diffX);
+					ivP1.setY(ev.getRawY() - diffY);
+				}
 			}
+
 			return true;
 		}
 	};
@@ -185,11 +188,13 @@ public class MainActivity extends Activity {
 	{
 		public boolean onTouch(View v , MotionEvent ev)
 		{
-
-			if (ev.getAction()==MotionEvent.ACTION_MOVE)
+			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY())&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth())&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight())))
 			{
-				ivP2.setX(ev.getRawX()-diffX);
-				ivP2.setY(ev.getRawY()-diffY);
+				if (ev.getAction() == MotionEvent.ACTION_MOVE)
+				{
+					ivP2.setX(ev.getRawX() - diffX);
+					ivP2.setY(ev.getRawY() - diffY);
+				}
 			}
 			return true;
 		}
@@ -203,11 +208,13 @@ public class MainActivity extends Activity {
 	{
 		public boolean onTouch(View v , MotionEvent ev)
 		{
-
-			if (ev.getAction()==MotionEvent.ACTION_MOVE)
+			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY())&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth())&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight())))
 			{
-				ivP3.setX(ev.getRawX()-diffX);
-				ivP3.setY(ev.getRawY()-diffY);
+				if (ev.getAction() == MotionEvent.ACTION_MOVE)
+				{
+					ivP3.setX(ev.getRawX() - diffX);
+					ivP3.setY(ev.getRawY() - diffY);
+				}
 			}
 			return true;
 		}
@@ -220,11 +227,13 @@ public class MainActivity extends Activity {
 	{
 		public boolean onTouch(View v , MotionEvent ev)
 		{
-
-			if (ev.getAction()==MotionEvent.ACTION_MOVE)
+			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY())&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth())&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight())))
 			{
-				ivP4.setX(ev.getRawX()-diffX);
-				ivP4.setY(ev.getRawY()-diffY);
+				if (ev.getAction() == MotionEvent.ACTION_MOVE)
+				{
+					ivP4.setX(ev.getRawX() - diffX);
+					ivP4.setY(ev.getRawY() - diffY);
+				}
 			}
 			return true;
 		}
