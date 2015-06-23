@@ -347,7 +347,7 @@ public class MainActivity extends Activity {
 //region Lokal Position
 	public void lokalePosition()
 	{
-		
+
 	}
 
 
