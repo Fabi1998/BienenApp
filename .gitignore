@@ -1,6 +1,5 @@
 /.gradle
-/.idea/workspace.xml
-/.idea/libaries
+/.idea
 .DS_Store
 /local.properties
 /BienenProjekt/build
