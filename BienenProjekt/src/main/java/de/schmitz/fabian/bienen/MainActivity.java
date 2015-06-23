@@ -126,7 +126,7 @@ public class MainActivity extends Activity {
 		}
 	};
 	//endregion
-	// region Scale and Confirm
+// region Scale and Confirm
 	private OnClickListener btnConfirmClickListener = new OnClickListener()
 	{
 		@Override
@@ -353,7 +353,7 @@ public class MainActivity extends Activity {
 
 	}
 	//endregion
-	// region Punkte sortieren
+// region Punkte sortieren
 	public float[][] punkteSortieren() {
 		float x1 = Zentren.getXcenter1();
 		float y1 = Zentren.getYcenter1();
@@ -448,7 +448,23 @@ public class MainActivity extends Activity {
 	}
 	//endregion
 
- 	
+//region Koordinaten zur Imageview umrechnen
+
+		public float [] convertKoordinaten (float x, float y)
+		{
+			float neueKoordinaten[] = new float [2];
+			x =  x - imageView.getX();
+			y = y - imageView.getY();
+			neueKoordinaten[0]= x;
+			neueKoordinaten[1]= y;
+
+			return neueKoordinaten;
+		}
+
+
+	//endregion
+
+
 
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
