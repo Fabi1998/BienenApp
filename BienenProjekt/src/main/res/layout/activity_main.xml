@@ -28,7 +28,8 @@
         android:src="@drawable/bienen"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/btnScale"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY" />
 
 
     <ImageView

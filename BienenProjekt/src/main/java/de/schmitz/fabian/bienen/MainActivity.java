@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -42,8 +43,7 @@ public class MainActivity extends Activity {
 	private int grenzwert = 115;
 	private int bienenProProzentFlaeche = 10;
 	private int anzahlBienenInsgesamt;
-	private Bitmap angezeigtesBild;
-
+	private Bitmap skaliert;
 
 	MittelpunkteDerKreise Zentren = new MittelpunkteDerKreise(1,1,1,1,1,1,1,1);
 	//endregion
@@ -170,7 +170,7 @@ public class MainActivity extends Activity {
 	{
 		public boolean onTouch(View v , MotionEvent ev)
 		{
-			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()+(imageView.getX()/20)&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY()+(imageView.getHeight()/10))&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth()-(imageView.getX()/20))&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight()-(imageView.getHeight()/13))))
+			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY())&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth())&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight())))
 
 			{
 				if (ev.getAction() == MotionEvent.ACTION_MOVE)
@@ -191,7 +191,7 @@ public class MainActivity extends Activity {
 	{
 		public boolean onTouch(View v , MotionEvent ev)
 		{
-			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()+(imageView.getX()/20)&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY()+(imageView.getHeight()/10))&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth()-(imageView.getX()/20))&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight()-(imageView.getHeight()/13))))
+			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY())&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth())&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight())))
 			{
 				if (ev.getAction() == MotionEvent.ACTION_MOVE)
 				{
@@ -211,7 +211,7 @@ public class MainActivity extends Activity {
 	{
 		public boolean onTouch(View v , MotionEvent ev)
 		{
-			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()+(imageView.getX()/20)&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY()+(imageView.getHeight()/10))&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth()-(imageView.getX()/20))&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight()-(imageView.getHeight()/13))))
+			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY())&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth())&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight())))
 			{
 				if (ev.getAction() == MotionEvent.ACTION_MOVE)
 				{
@@ -230,7 +230,7 @@ public class MainActivity extends Activity {
 	{
 		public boolean onTouch(View v , MotionEvent ev)
 		{
-			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()+(imageView.getX()/20)&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY()+(imageView.getHeight()/10))&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth()-(imageView.getX()/20))&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight()-(imageView.getHeight()/13))))
+			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY())&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth())&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight())))
 			{
 				if (ev.getAction() == MotionEvent.ACTION_MOVE)
 				{
@@ -484,9 +484,20 @@ public class MainActivity extends Activity {
 					//int w2 = (int) (w1 / h1 * (float) h2);
 					int h2 = 200;
 					int w2 = 320;
-					Bitmap skaliert = Bitmap.createScaledBitmap(
-							bitmapVonKameraBild, w2, h2, false);
+
+					if(bitmapVonKameraBild.getWidth()>bitmapVonKameraBild.getHeight())
+					{
+						skaliert = Bitmap.createScaledBitmap(bitmapVonKameraBild, w2, h2, false);
+					}
+					else
+					{
+						skaliert = Bitmap.createScaledBitmap(bitmapVonKameraBild, w2, h2, false);
+						final Matrix mtx = new Matrix();
+						mtx.postRotate(90);
+						skaliert = Bitmap.createBitmap(skaliert, 0, 0, skaliert.getWidth(), skaliert.getHeight(), mtx, true);
+					}
 					imageView.setImageBitmap(skaliert);
+
 				} catch (Exception e) {
 					Log.e(TAG, "setBitmap()", e);
 				}
