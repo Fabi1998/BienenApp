@@ -35,13 +35,14 @@ public class MainActivity extends Activity {
 	private Button btnReset;
 	private TextView bienenzahl;
 	private ImageView imageView,ivP1 ,ivP2 ,ivP3 ,ivP4;
-	private float diffX,diffY;
+	private float diffX,diffY ;
 	private float xcenter1, xcenter2, xcenter3, xcenter4;
 	private float ycenter1, ycenter2, ycenter3, ycenter4;
 	private boolean rechneVerschiebung;
 	private int grenzwert = 115;
 	private int bienenProProzentFlaeche = 10;
 	private int anzahlBienenInsgesamt;
+	private Bitmap angezeigtesBild;
 
 
 	MittelpunkteDerKreise Zentren = new MittelpunkteDerKreise(1,1,1,1,1,1,1,1);
@@ -74,7 +75,8 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			Drawable drawable = imageView.getDrawable();
-			if (drawable instanceof BitmapDrawable) {
+			if (drawable instanceof BitmapDrawable)
+			{
 				BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
 				Bitmap bitmap = bitmapDrawable.getBitmap();
 				BienenBitmap bienenBitmap = erzeugeBienenBitmap(bitmap);
@@ -156,7 +158,7 @@ public class MainActivity extends Activity {
 			if(rechneVerschiebung)
 			{
 				diffX = ivP1.getWidth()/2;
-				diffY = (ivP4.getY()-ivP1.getY()+ivP1.getHeight()/2);
+				diffY = (ivP4.getY()-ivP1.getY())/2+ivP1.getHeight()/2;
 				rechneVerschiebung = false;
 			}
 		}
@@ -168,7 +170,8 @@ public class MainActivity extends Activity {
 	{
 		public boolean onTouch(View v , MotionEvent ev)
 		{
-			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY())&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth())&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight())))
+			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()+(imageView.getX()/20)&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY()+(imageView.getHeight()/10))&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth()-(imageView.getX()/20))&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight()-(imageView.getHeight()/13))))
+
 			{
 				if (ev.getAction() == MotionEvent.ACTION_MOVE)
 				{
@@ -188,7 +191,7 @@ public class MainActivity extends Activity {
 	{
 		public boolean onTouch(View v , MotionEvent ev)
 		{
-			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY())&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth())&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight())))
+			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()+(imageView.getX()/20)&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY()+(imageView.getHeight()/10))&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth()-(imageView.getX()/20))&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight()-(imageView.getHeight()/13))))
 			{
 				if (ev.getAction() == MotionEvent.ACTION_MOVE)
 				{
@@ -208,7 +211,7 @@ public class MainActivity extends Activity {
 	{
 		public boolean onTouch(View v , MotionEvent ev)
 		{
-			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY())&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth())&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight())))
+			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()+(imageView.getX()/20)&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY()+(imageView.getHeight()/10))&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth()-(imageView.getX()/20))&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight()-(imageView.getHeight()/13))))
 			{
 				if (ev.getAction() == MotionEvent.ACTION_MOVE)
 				{
@@ -227,10 +230,11 @@ public class MainActivity extends Activity {
 	{
 		public boolean onTouch(View v , MotionEvent ev)
 		{
-			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY())&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth())&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight())))
+			if((ev.getRawX()- diffX+ivP1.getWidth()/2>=imageView.getX()+(imageView.getX()/20)&&ev.getRawY()- diffY+ivP1.getHeight()/2>=imageView.getY()+(imageView.getHeight()/10))&&(ev.getRawX()<=(imageView.getX()+imageView.getWidth()-(imageView.getX()/20))&&ev.getRawY()- diffY+ivP1.getHeight()/2<=(imageView.getY()+imageView.getHeight()-(imageView.getHeight()/13))))
 			{
 				if (ev.getAction() == MotionEvent.ACTION_MOVE)
 				{
+
 					ivP4.setX(ev.getRawX() - diffX);
 					ivP4.setY(ev.getRawY() - diffY);
 				}
@@ -265,13 +269,11 @@ public class MainActivity extends Activity {
 		kameraButton.setOnClickListener(kameraClickListener);
 		btnReset = (Button) findViewById(R.id.btnReset);
 		btnReset.setOnClickListener(resetClickListener);
-
 		ivP1.setOnTouchListener(ivP1TouchListener);
 		ivP2.setOnTouchListener(ivP2TouchListener);
 		ivP3.setOnTouchListener(ivP3TouchListener);
 		ivP4.setOnTouchListener(ivP4TouchListener);
 		rechneVerschiebung = true;
-
 
 	}
 //endregion
@@ -484,7 +486,6 @@ public class MainActivity extends Activity {
 					int w2 = 320;
 					Bitmap skaliert = Bitmap.createScaledBitmap(
 							bitmapVonKameraBild, w2, h2, false);
-
 					imageView.setImageBitmap(skaliert);
 				} catch (Exception e) {
 					Log.e(TAG, "setBitmap()", e);
