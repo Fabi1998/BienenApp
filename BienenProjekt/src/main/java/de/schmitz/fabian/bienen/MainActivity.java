@@ -341,15 +341,15 @@ public class MainActivity extends Activity {
 //region Mittelpunkte geben
 	private void kreisMittelpunktBerechnen ()
 	{
-		ycenter1 = ivP1.getY()+(ivP1.getHeight()*0.5f);
-		ycenter2 = ivP2.getY()+(ivP2.getHeight()*0.5f);
-		ycenter3 = ivP3.getY()+(ivP3.getHeight()*0.5f);
-		ycenter4 = ivP4.getY()+(ivP4.getHeight()*0.5f);
+		ycenter1 = ivP1.getY();//+(ivP1.getHeight()*0.5f);
+		ycenter2 = ivP2.getY();//+(ivP2.getHeight()*0.5f);
+		ycenter3 = ivP3.getY();//+(ivP3.getHeight()*0.5f);
+		ycenter4 = ivP4.getY();//+(ivP4.getHeight()*0.5f);
 
-		xcenter1 = ivP1.getX()+(ivP1.getWidth()*0.5f);
-		xcenter2 = ivP2.getX()+(ivP2.getWidth()*0.5f);
-		xcenter3 = ivP3.getX()+(ivP3.getWidth()*0.5f);
-		xcenter4 = ivP4.getX()+(ivP4.getWidth()*0.5f);
+		xcenter1 = ivP1.getX();//+(ivP1.getWidth()*0.5f);
+		xcenter2 = ivP2.getX();//+(ivP2.getWidth()*0.5f);
+		xcenter3 = ivP3.getX();//+(ivP3.getWidth()*0.5f);
+		xcenter4 = ivP4.getX();//+(ivP4.getWidth()*0.5f);
 
 		Zentren.setYcenter1(ycenter1);
 		Zentren.setYcenter2(ycenter2);
