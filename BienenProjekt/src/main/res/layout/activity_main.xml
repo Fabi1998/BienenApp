@@ -101,7 +101,8 @@
         android:layout_gravity="center_horizontal"
         android:enabled="true"
         android:layout_alignTop="@+id/btnConfirm"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/btnConfirm"

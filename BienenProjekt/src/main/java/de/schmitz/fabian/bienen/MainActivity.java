@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Color;
+
 
 
 
@@ -44,6 +49,8 @@ public class MainActivity extends Activity {
 	private int bienenProProzentFlaeche = 10;
 	private int anzahlBienenInsgesamt;
 	private Bitmap skaliert;
+	private Canvas maler;
+	private Paint derMaler;
 
 	MittelpunkteDerKreise Zentren = new MittelpunkteDerKreise(1,1,1,1,1,1,1,1);
 	//endregion
@@ -140,6 +147,8 @@ public class MainActivity extends Activity {
 			ivP2.setVisibility(View.INVISIBLE);
 			ivP3.setVisibility(View.INVISIBLE);
 			ivP4.setVisibility(View.INVISIBLE);
+
+			markieren();
 
 		}
 	};
@@ -274,7 +283,6 @@ public class MainActivity extends Activity {
 		ivP3.setOnTouchListener(ivP3TouchListener);
 		ivP4.setOnTouchListener(ivP4TouchListener);
 		rechneVerschiebung = true;
-
 	}
 //endregion
 //region Zwischenspeicher
@@ -382,7 +390,7 @@ public class MainActivity extends Activity {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3 - i; j++)
 			{
-				if (xsort[j]>xsort[j+1])
+				if (xsort[j]>=xsort[j+1])
 				{
 					float tempx = xsort[j];
 					xsort[j] = xsort[j+1];
@@ -396,6 +404,7 @@ public class MainActivity extends Activity {
 		}
 
 		float[][] punkteArray = new float[4][3];
+
 		//region Einortnen der Punkte
 
 		//region linke Hälfte der Punkte
@@ -449,7 +458,6 @@ public class MainActivity extends Activity {
 		return punkteArray;
 	}
 	//endregion
-
 //region Koordinaten zur Imageview umrechnen
 
 		public float [] convertKoordinaten (float x, float y)
@@ -465,9 +473,30 @@ public class MainActivity extends Activity {
 
 
 	//endregion
+//region Makieren
 
+	public void markieren()
+	{
+		Canvas maler = new Canvas(skaliert);
+		Paint derMaler = new Paint();
+		derMaler.setColor(0x00FF0000);
+		derMaler.setStyle(Paint.Style.FILL_AND_STROKE);
+		derMaler.setStrokeWidth(5);
+		derMaler.setStrokeJoin(Paint.Join.ROUND);
+		derMaler.setStrokeCap(Paint.Cap.SQUARE);
 
+		float[][] punktesortiert = new float[4][3];
+		punktesortiert=punkteSortieren();
 
+		maler.drawLine(punktesortiert[0][1],punktesortiert[0][2],punktesortiert[1][1],punktesortiert[1][2],derMaler);
+		maler.drawLine(punktesortiert[1][1],punktesortiert[1][2],punktesortiert[2][1],punktesortiert[2][2],derMaler);
+		maler.drawLine(punktesortiert[2][1],punktesortiert[2][2],punktesortiert[3][1],punktesortiert[3][2],derMaler);
+		maler.drawLine(punktesortiert[3][1],punktesortiert[3][2],punktesortiert[0][1],punktesortiert[0][2],derMaler);
+
+		
+	}
+
+	//endregion
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == IMAGE_CAPTURE) {
@@ -497,7 +526,6 @@ public class MainActivity extends Activity {
 						skaliert = Bitmap.createBitmap(skaliert, 0, 0, skaliert.getWidth(), skaliert.getHeight(), mtx, true);
 					}
 					imageView.setImageBitmap(skaliert);
-
 				} catch (Exception e) {
 					Log.e(TAG, "setBitmap()", e);
 				}
