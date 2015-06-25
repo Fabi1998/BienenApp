@@ -25,7 +25,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Color;
 
-import java.sql.Time;
+
+
 
 
 public class MainActivity extends Activity {
@@ -46,7 +47,7 @@ public class MainActivity extends Activity {
 	private int grenzwert = 115;
 	private int bienenProProzentFlaeche = 10;
 	private int anzahlBienenInsgesamt;
-	private Bitmap skaliert,ivp1;
+	private Bitmap skaliert;
 	private Canvas maler;
 	private Paint derMaler;
 
@@ -56,7 +57,7 @@ public class MainActivity extends Activity {
 	private static final int IMAGE_CAPTURE = 1000;
 
 	private static final String TAG = "BienenZaehlApp";
-//region Reset und Kamera
+	//region Reset und Kamera
 	private OnClickListener resetClickListener = new OnClickListener()
 	{
 		public void onClick(View v)
@@ -158,12 +159,12 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View v)
 		{
-				btnScale.setVisibility(View.INVISIBLE);
-				btnConfirm.setVisibility(View.VISIBLE);
-				ivP1.setVisibility(View.VISIBLE);
-				ivP2.setVisibility(View.VISIBLE);
-				ivP3.setVisibility(View.VISIBLE);
-				ivP4.setVisibility(View.VISIBLE);
+			btnScale.setVisibility(View.INVISIBLE);
+			btnConfirm.setVisibility(View.VISIBLE);
+			ivP1.setVisibility(View.VISIBLE);
+			ivP2.setVisibility(View.VISIBLE);
+			ivP3.setVisibility(View.VISIBLE);
+			ivP4.setVisibility(View.VISIBLE);
 			if(rechneVerschiebung)
 			{
 				diffX = ivP1.getWidth()/2;
@@ -252,7 +253,7 @@ public class MainActivity extends Activity {
 		}
 	};
 
-//endregion
+	//endregion
 //region Create
 	private Uri imageUri;
 
@@ -283,7 +284,6 @@ public class MainActivity extends Activity {
 		ivP3.setOnTouchListener(ivP3TouchListener);
 		ivP4.setOnTouchListener(ivP4TouchListener);
 		rechneVerschiebung = true;
-		derMaler = new Paint();
 	}
 //endregion
 //region Zwischenspeicher
@@ -341,15 +341,15 @@ public class MainActivity extends Activity {
 //region Mittelpunkte geben
 	private void kreisMittelpunktBerechnen ()
 	{
-		ycenter1 = ivP1.getY();//+(ivP1.getHeight()*0.5f);
-		ycenter2 = ivP2.getY();//+(ivP2.getHeight()*0.5f);
-		ycenter3 = ivP3.getY();//+(ivP3.getHeight()*0.5f);
-		ycenter4 = ivP4.getY();//+(ivP4.getHeight()*0.5f);
+		ycenter1 = ivP1.getY()+(ivP1.getHeight()*0.5f);
+		ycenter2 = ivP2.getY()+(ivP2.getHeight()*0.5f);
+		ycenter3 = ivP3.getY()+(ivP3.getHeight()*0.5f);
+		ycenter4 = ivP4.getY()+(ivP4.getHeight()*0.5f);
 
-		xcenter1 = ivP1.getX();//+(ivP1.getWidth()*0.5f);
-		xcenter2 = ivP2.getX();//+(ivP2.getWidth()*0.5f);
-		xcenter3 = ivP3.getX();//+(ivP3.getWidth()*0.5f);
-		xcenter4 = ivP4.getX();//+(ivP4.getWidth()*0.5f);
+		xcenter1 = ivP1.getX()+(ivP1.getWidth()*0.5f);
+		xcenter2 = ivP2.getX()+(ivP2.getWidth()*0.5f);
+		xcenter3 = ivP3.getX()+(ivP3.getWidth()*0.5f);
+		xcenter4 = ivP4.getX()+(ivP4.getWidth()*0.5f);
 
 		Zentren.setYcenter1(ycenter1);
 		Zentren.setYcenter2(ycenter2);
@@ -463,16 +463,16 @@ public class MainActivity extends Activity {
 	//endregion
 //region Koordinaten zur Imageview umrechnen
 
-		public float [] convertKoordinaten (float x, float y)
-		{
-			float neueKoordinaten[] = new float [2];
-			x =  x - imageView.getX();
-			y = y - imageView.getY();
-			neueKoordinaten[0]= x;
-			neueKoordinaten[1]= y;
+	public float [] convertKoordinaten (float x, float y)
+	{
+		float neueKoordinaten[] = new float [2];
+		x =  x - imageView.getX();
+		y = y - imageView.getY();
+		neueKoordinaten[0]= x;
+		neueKoordinaten[1]= y;
 
-			return neueKoordinaten;
-		}
+		return neueKoordinaten;
+	}
 
 
 	//endregion
@@ -481,28 +481,16 @@ public class MainActivity extends Activity {
 	public void markieren()
 	{
 		Canvas maler = new Canvas(skaliert);
-<<<<<<< HEAD
-		derMaler.setColor(0x00FF0000);
-=======
 		derMaler = new Paint();
 		derMaler.setColor(Color.MAGENTA);
->>>>>>> cf0b65fc3c5f64ac10d06aae49feef5d1483f112
 		derMaler.setStyle(Paint.Style.FILL_AND_STROKE);
 		derMaler.setStrokeWidth(5);
 		derMaler.setStrokeJoin(Paint.Join.ROUND);
 		derMaler.setStrokeCap(Paint.Cap.SQUARE);
 
-
 		float[][] punktesortiert = new float[4][3];
 		punktesortiert=punkteSortieren();
-<<<<<<< HEAD
-		maler.drawLine(punktesortiert[0][1],punktesortiert[0][2],punktesortiert[1][1],punktesortiert[1][2],derMaler);
-		maler.drawLine(punktesortiert[1][1],punktesortiert[1][2],punktesortiert[2][1],punktesortiert[2][2],derMaler);
-		maler.drawLine(punktesortiert[2][1],punktesortiert[2][2],punktesortiert[3][1],punktesortiert[3][2],derMaler);
-		maler.drawLine(punktesortiert[3][1],punktesortiert[3][2],punktesortiert[0][1],punktesortiert[0][2],derMaler);
-=======
 
->>>>>>> cf0b65fc3c5f64ac10d06aae49feef5d1483f112
 
 		maler.drawLine(punktesortiert[0][1]-imageView.getX(),punktesortiert[0][2]-imageView.getY(),punktesortiert[1][1]-imageView.getX(),punktesortiert[1][2]-imageView.getY(),derMaler);
 		maler.drawLine(punktesortiert[1][1]-imageView.getX(),punktesortiert[1][2]-imageView.getY(),punktesortiert[2][1]-imageView.getX(),punktesortiert[2][2]-imageView.getY(),derMaler);
@@ -548,8 +536,7 @@ public class MainActivity extends Activity {
 				} catch (Exception e) {
 					Log.e(TAG, "setBitmap()", e);
 				}
-			} else
-			{
+			} else {
 				int rowsDeleted = getContentResolver().delete(imageUri, null,
 						null);
 				Log.d(TAG, rowsDeleted + " rows deleted");
