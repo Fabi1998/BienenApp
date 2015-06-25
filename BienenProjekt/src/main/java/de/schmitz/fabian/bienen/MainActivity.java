@@ -26,8 +26,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Color;
 
-
-
+import java.sql.Time;
 
 
 public class MainActivity extends Activity {
@@ -48,7 +47,7 @@ public class MainActivity extends Activity {
 	private int grenzwert = 115;
 	private int bienenProProzentFlaeche = 10;
 	private int anzahlBienenInsgesamt;
-	private Bitmap skaliert;
+	private Bitmap skaliert,ivp1;
 	private Canvas maler;
 	private Paint derMaler;
 
@@ -283,6 +282,7 @@ public class MainActivity extends Activity {
 		ivP3.setOnTouchListener(ivP3TouchListener);
 		ivP4.setOnTouchListener(ivP4TouchListener);
 		rechneVerschiebung = true;
+		derMaler = new Paint();
 	}
 //endregion
 //region Zwischenspeicher
@@ -365,6 +365,7 @@ public class MainActivity extends Activity {
 	//endregion
 // region Punkte sortieren
 	public float[][] punkteSortieren() {
+		kreisMittelpunktBerechnen();
 		float x1 = Zentren.getXcenter1();
 		float y1 = Zentren.getYcenter1();
 
@@ -478,16 +479,15 @@ public class MainActivity extends Activity {
 	public void markieren()
 	{
 		Canvas maler = new Canvas(skaliert);
-		Paint derMaler = new Paint();
 		derMaler.setColor(0x00FF0000);
 		derMaler.setStyle(Paint.Style.FILL_AND_STROKE);
 		derMaler.setStrokeWidth(5);
 		derMaler.setStrokeJoin(Paint.Join.ROUND);
 		derMaler.setStrokeCap(Paint.Cap.SQUARE);
 
+
 		float[][] punktesortiert = new float[4][3];
 		punktesortiert=punkteSortieren();
-
 		maler.drawLine(punktesortiert[0][1],punktesortiert[0][2],punktesortiert[1][1],punktesortiert[1][2],derMaler);
 		maler.drawLine(punktesortiert[1][1],punktesortiert[1][2],punktesortiert[2][1],punktesortiert[2][2],derMaler);
 		maler.drawLine(punktesortiert[2][1],punktesortiert[2][2],punktesortiert[3][1],punktesortiert[3][2],derMaler);
