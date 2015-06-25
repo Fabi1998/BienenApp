@@ -501,7 +501,8 @@ public class MainActivity extends Activity {
 				} catch (Exception e) {
 					Log.e(TAG, "setBitmap()", e);
 				}
-			} else {
+			} else
+			{
 				int rowsDeleted = getContentResolver().delete(imageUri, null,
 						null);
 				Log.d(TAG, rowsDeleted + " rows deleted");
