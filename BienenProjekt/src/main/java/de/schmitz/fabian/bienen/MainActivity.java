@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -73,6 +72,8 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			startCamera();
+			btnConfirm.setVisibility(View.VISIBLE);
+			btnScale.setVisibility(View.VISIBLE);
 		}
 	};
 	//endregion
@@ -340,15 +341,15 @@ public class MainActivity extends Activity {
 //region Mittelpunkte geben
 	private void kreisMittelpunktBerechnen ()
 	{
-		ycenter1 = ivP1.getY()+ivP1.getHeight()/2;
-		ycenter2 = ivP2.getY()+ivP2.getHeight()/2;
-		ycenter3 = ivP3.getY()+ivP3.getHeight()/2;
-		ycenter4 = ivP4.getY()+ivP4.getHeight()/2;
+		ycenter1 = ivP1.getY()+(ivP1.getHeight()*0.5f);
+		ycenter2 = ivP2.getY()+(ivP2.getHeight()*0.5f);
+		ycenter3 = ivP3.getY()+(ivP3.getHeight()*0.5f);
+		ycenter4 = ivP4.getY()+(ivP4.getHeight()*0.5f);
 
-		xcenter1 = ivP1.getX()+ivP1.getWidth()/2;
-		xcenter2 = ivP2.getX()+ivP2.getWidth()/2;
-		xcenter3 = ivP3.getX()+ivP3.getWidth()/2;
-		xcenter4 = ivP4.getX()+ivP4.getWidth()/2;
+		xcenter1 = ivP1.getX()+(ivP1.getWidth()*0.5f);
+		xcenter2 = ivP2.getX()+(ivP2.getWidth()*0.5f);
+		xcenter3 = ivP3.getX()+(ivP3.getWidth()*0.5f);
+		xcenter4 = ivP4.getX()+(ivP4.getWidth()*0.5f);
 
 		Zentren.setYcenter1(ycenter1);
 		Zentren.setYcenter2(ycenter2);
@@ -358,13 +359,13 @@ public class MainActivity extends Activity {
 		Zentren.setXcenter2(xcenter2);
 		Zentren.setXcenter3(xcenter3);
 		Zentren.setXcenter4(xcenter4);
-
-
-
+		bienenzahl.setText("x" + (ivP1.getWidth()) + ",y " + (ivP1.getHeight()) + ",x " + ivP1.getX() + ",y " + ivP1.getY());
 	}
+
 	//endregion
 // region Punkte sortieren
 	public float[][] punkteSortieren() {
+		kreisMittelpunktBerechnen();
 		float x1 = Zentren.getXcenter1();
 		float y1 = Zentren.getYcenter1();
 
@@ -376,6 +377,8 @@ public class MainActivity extends Activity {
 
 		float x4 = Zentren.getXcenter4();
 		float y4 = Zentren.getYcenter4();
+
+
 
 		float[] xsort = new float[4];
 		xsort[0] = x1;
@@ -478,8 +481,8 @@ public class MainActivity extends Activity {
 	public void markieren()
 	{
 		Canvas maler = new Canvas(skaliert);
-		Paint derMaler = new Paint();
-		derMaler.setColor(0x00FF0000);
+		derMaler = new Paint();
+		derMaler.setColor(Color.MAGENTA);
 		derMaler.setStyle(Paint.Style.FILL_AND_STROKE);
 		derMaler.setStrokeWidth(5);
 		derMaler.setStrokeJoin(Paint.Join.ROUND);
@@ -488,12 +491,16 @@ public class MainActivity extends Activity {
 		float[][] punktesortiert = new float[4][3];
 		punktesortiert=punkteSortieren();
 
-		maler.drawLine(punktesortiert[0][1],punktesortiert[0][2],punktesortiert[1][1],punktesortiert[1][2],derMaler);
-		maler.drawLine(punktesortiert[1][1],punktesortiert[1][2],punktesortiert[2][1],punktesortiert[2][2],derMaler);
-		maler.drawLine(punktesortiert[2][1],punktesortiert[2][2],punktesortiert[3][1],punktesortiert[3][2],derMaler);
-		maler.drawLine(punktesortiert[3][1],punktesortiert[3][2],punktesortiert[0][1],punktesortiert[0][2],derMaler);
 
-		
+		maler.drawLine(punktesortiert[0][1]-imageView.getX(),punktesortiert[0][2]-imageView.getY(),punktesortiert[1][1]-imageView.getX(),punktesortiert[1][2]-imageView.getY(),derMaler);
+		maler.drawLine(punktesortiert[1][1]-imageView.getX(),punktesortiert[1][2]-imageView.getY(),punktesortiert[2][1]-imageView.getX(),punktesortiert[2][2]-imageView.getY(),derMaler);
+		maler.drawLine(punktesortiert[2][1]-imageView.getX(),punktesortiert[2][2]-imageView.getY(), punktesortiert[3][1] - imageView.getX(), punktesortiert[3][2] - imageView.getY(), derMaler);
+		maler.drawLine(punktesortiert[3][1] - imageView.getX(), punktesortiert[3][2]-imageView.getY(),punktesortiert[0][1]-imageView.getX(),punktesortiert[0][2]-imageView.getY(),derMaler);
+
+
+
+
+
 	}
 
 	//endregion
